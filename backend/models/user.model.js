@@ -7,12 +7,12 @@ const userSchema = new mongoose.Schema({
         firstname : {
             type : String,
             required : true,
-            minlength : [2, 'First name must be at least of 3 characters']
+            minlength : [3, 'First name must be at least of 3 characters or long']
         },
         lastname : {
             type : String,
-            //required : true,
-            minlength : [2, 'First name must be at least of 3 characters']
+            required : true,
+            minlength : [3, 'First name must be at least of 3 characters or long']
         },
     },
     email: {
@@ -28,11 +28,13 @@ const userSchema = new mongoose.Schema({
         required : true,
         //min length is not required as we will be using jwt for authentication
         //minlength : [8, 'password must be of length 8'],
-        select: false
+        select: false 
+        //when user is to be find then by default it should not show up
     },
     socketId: {
         type : String,
-        //required for sharing live location of the captain with the user will create same in captian too
+        //required for sharing live location of the captain with 
+        // the user will create same in captian too
     },    
 })
 

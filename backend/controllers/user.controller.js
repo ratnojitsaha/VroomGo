@@ -11,8 +11,6 @@ module.exports.registerUser = async(req, res, next)=>{
             errors : errors.array()
         });
     }
-
-    console.log(req.body);
     
     const { fullname, email, password} = req.body;
 
