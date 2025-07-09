@@ -70,8 +70,7 @@ Content-Type: application/json
 ## Here the password is hashed using bcrypt.
 
 
-
-
+----------------------------------------------------
 
 
 ## User Login Endpoint
@@ -134,3 +133,74 @@ Content-Type: application/json
     }
 }
 ```
+
+--------------------------------------------------
+
+## User Profile Endpoint
+
+### GET `/users/profile`
+
+Returns the authenticated user's profile information.
+
+#### Authentication
+
+- Requires a valid JWT token in the `Authorization` header as a Bearer token or in the `token` cookie.
+
+#### Responses
+
+| Status Code | Description                | Response Body Example                |
+|-------------|----------------------------|--------------------------------------|
+| 200         | Success                    | `{ "fullname": { ... }, "email": "...", ... }` |
+| 401         | Unauthorized (no/invalid token) | `{ "message": "Unauthorized" }`     |
+
+#### Example Request
+
+```http
+GET /users/profile
+Authorization: Bearer <jwt_token> || Cookies : <jwt_token>
+```
+
+#### Example Success Response
+
+```json
+{
+  "fullname": {
+    "firstname": "Alice",
+    "lastname": "Smith"
+  },
+  "email": "alice.smith@example.com",
+  "_id": "686bbee78e5e5f474c63bcd1"
+}
+```
+
+----------------------------------------------
+
+## User Logout Endpoint
+
+### GET `/users/logout`
+
+Logs out the authenticated user by blacklisting the current JWT token and clearing the authentication cookie.
+
+#### Authentication
+
+- Requires a valid JWT token in the `Authorization` header as a Bearer token or in the `token` cookie.
+
+#### Responses
+
+| Status Code | Description                | Response Body Example                |
+|-------------|----------------------------|--------------------------------------|
+| 200         | Logout successful          | `{ "message": "Logged Out" }`        |
+| 401         | Unauthorized (no/invalid token) | `{ "message": "Unauthorized" }`     |
+
+#### Example Request
+
+```http
+GET /users/logout
+Authorization: Bearer <jwt_token> || Cookies : <jwt_token>
+```
+
+#### Example Success Response
+
+```json
+{
+  "message": "Logged Out"
